@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80">
+  <rect x="5" y="10" width="8" height="35" fill="#CC2927" rx="1"/>
+  <rect x="15" y="15" width="8" height="30" fill="#CC2927" rx="1"/>
+  <rect x="25" y="8" width="8" height="37" fill="#CC2927" rx="1"/>
+  <rect x="35" y="12" width="8" height="33" fill="#CC2927" rx="1"/>
+  <text x="55" y="35" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#CC2927">SQL Server</text>
+  <text x="55" y="55" font-family="Arial, sans-serif" font-size="12" fill="#666">Microsoft</text>
+</svg>

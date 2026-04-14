@@ -1,0 +1,44 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-macasa-primary: #003DA5;
+  --color-macasa-primary-dark: #002C75;
+  --color-macasa-primary-light: #0047BB;
+  --color-macasa-secondary: #00357A;
+  --color-macasa-accent: #F2933D;
+  --color-macasa-accent-warm: #FFB902;
+  --color-macasa-dark: #1E2022;
+  --color-macasa-text: #333E48;
+  --color-macasa-text-light: #77838F;
+  --color-macasa-border: #E7EAF3;
+  --color-macasa-bg-light: #F8FAFD;
+  --color-macasa-bg-neutral: #ECEDF2;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --animate-fade-in: fadeIn 0.6s ease-out forwards;
+  --animate-slide-up: slideUp 0.6s ease-out forwards;
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-macasa-dark);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
