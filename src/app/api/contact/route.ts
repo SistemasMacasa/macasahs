@@ -22,7 +22,7 @@ export async function POST(request: Request) {
 
     await transporter.sendMail({
       from: '"MACASA Sitio Web" <soporte@macasahs.com.mx>',
-      to: 'contacto01@macasahs.com.mx',
+      to: 'ventas@macasahs.com.mx',
       replyTo: email,
       subject: `Nuevo contacto: ${subject}`,
       html: `
