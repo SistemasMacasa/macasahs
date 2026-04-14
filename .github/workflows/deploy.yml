@@ -1,0 +1,75 @@
+name: Deploy → AWS Lightsail
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Install lightsailctl
+        run: |
+          curl -sL https://s3.us-west-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl \
+            -o /usr/local/bin/lightsailctl
+          chmod +x /usr/local/bin/lightsailctl
+
+      - name: Build Docker image
+        run: docker build -t macasahs:latest .
+
+      - name: Push image to Lightsail
+        id: push
+        run: |
+          OUTPUT=$(aws lightsail push-container-image \
+            --region us-east-1 \
+            --service-name macasahs \
+            --label macasahs \
+            --image macasahs:latest 2>&1)
+          echo "$OUTPUT"
+          IMAGE=$(echo "$OUTPUT" | grep -o '":macasahs\.macasahs\.[0-9]*"' | tr -d '"')
+          echo "image=$IMAGE" >> $GITHUB_OUTPUT
+
+      - name: Deploy container
+        run: |
+          aws lightsail create-container-service-deployment \
+            --service-name macasahs \
+            --region us-east-1 \
+            --containers "{
+              \"macasahs\": {
+                \"image\": \"${{ steps.push.outputs.image }}\",
+                \"ports\": {\"3000\": \"HTTP\"},
+                \"environment\": {
+                  \"NODE_ENV\": \"production\",
+                  \"PORT\": \"3000\",
+                  \"HOSTNAME\": \"0.0.0.0\",
+                  \"BREVO_USER\": \"${{ secrets.BREVO_USER }}\",
+                  \"BREVO_PASS\": \"${{ secrets.BREVO_PASS }}\"
+                }
+              }
+            }" \
+            --public-endpoint '{
+              "containerName": "macasahs",
+              "containerPort": 3000,
+              "healthCheck": {"path": "/", "intervalSeconds": 10, "timeoutSeconds": 5, "healthyThreshold": 2, "unhealthyThreshold": 3}
+            }'
+
+      - name: Wait for deployment
+        run: |
+          for i in {1..20}; do
+            STATE=$(aws lightsail get-container-services \
+              --service-name macasahs --region us-east-1 \
+              --query 'containerServices[0].state' --output text)
+            echo "[$i] $STATE"
+            if [ "$STATE" = "RUNNING" ]; then exit 0; fi
+            sleep 15
+          done
+          echo "Timeout waiting for deployment" && exit 1
