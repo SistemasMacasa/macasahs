@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     }
 
     await transporter.sendMail({
-      from: `"MACASA Web" <${process.env.BREVO_USER}>`,
+      from: '"MACASA Sitio Web" <soporte@macasahs.com.mx>',
       to: 'contacto01@macasahs.com.mx',
       replyTo: email,
       subject: `Nuevo contacto: ${subject}`,

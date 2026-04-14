@@ -37,7 +37,7 @@ export async function POST(request: Request) {
     }
 
     await transporter.sendMail({
-      from: `"MACASA — Bolsa de trabajo" <${process.env.BREVO_USER}>`,
+      from: '"MACASA Sitio Web — Bolsa de trabajo" <soporte@macasahs.com.mx>',
       to: 'mcarreon@macasahs.com.mx',
       replyTo: email,
       subject: `Solicitud de empleo: ${name}`,
