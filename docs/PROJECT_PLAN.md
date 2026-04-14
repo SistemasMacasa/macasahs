@@ -20,8 +20,10 @@
 | 7 | Deploy producción | ✅ Completada | 3/3 |
 | 8 | Deploy AWS + Dominio producción | ✅ Completada | 9/9 |
 | 9 | Página de reclutamiento /unete | ✅ Completada | 3/3 |
+| 10 | Brevo SMTP — formularios propios | ✅ Completada | 4/4 |
+| 11 | Export + CI/CD repo cliente | ✅ Completada | 4/4 |
 
-**Total**: 55/55 tareas completadas
+**Total**: 63/63 tareas completadas
 
 ---
 
@@ -254,3 +256,41 @@
 | 2026-04-13 | Web3Forms para reclutamiento — consistencia con ContactForm, sin backend extra |
 | 2026-04-13 | Envío a mcarreon@macasahs.com.mx — RRHH separado de contacto general |
 | 2026-04-13 | Web3Forms campo `to` no soportado en plan gratuito — usar access key dedicado por correo destino |
+
+---
+
+## FASE 10: Brevo SMTP — formularios propios ✅ COMPLETADA
+
+| # | Tarea | Estado | Notas |
+|---|-------|--------|-------|
+| 10.1 | Instalar nodemailer + @types/nodemailer | ✅ | |
+| 10.2 | `/api/contact` → Brevo → `ventas@macasahs.com.mx` | ✅ | replyTo del usuario |
+| 10.3 | `/api/unete` → Brevo → `mcarreon@macasahs.com.mx` + CV adjunto | ✅ | PDF/DOC/DOCX |
+| 10.4 | Sender `soporte@macasahs.com.mx` con dominio autenticado | ✅ | Dominio verificado en Brevo |
+
+### Decisiones
+
+| Fecha | Decisión |
+|-------|----------|
+| 2026-04-14 | Migrar de Web3Forms a nodemailer+Brevo — plan gratuito no soporta file uploads |
+| 2026-04-14 | Cuenta Brevo nueva ARTEM para macasahs — cuenta cliente sin créditos |
+| 2026-04-14 | Sender soporte@macasahs.com.mx — dominio macasahs.com.mx ya autenticado en Brevo |
+| 2026-04-14 | /contacto destinatario ventas@macasahs.com.mx (no contacto01@) |
+
+---
+
+## FASE 11: Export + CI/CD repo cliente ✅ COMPLETADA
+
+| # | Tarea | Estado | Notas |
+|---|-------|--------|-------|
+| 11.1 | Export limpio a `SistemasMacasa/macasahs` | ✅ | Script export-project.sh |
+| 11.2 | Workflow `deploy.yml` en cliente repo | ✅ | Build Docker → Lightsail |
+| 11.3 | Secrets AWS + Brevo en cliente repo | ✅ | 4 secrets configurados |
+| 11.4 | Sync automático `sync-macasahs.yml` en monorepo | ✅ | Push websites/macasahs/** → sync → deploy |
+
+### Decisiones
+
+| Fecha | Decisión |
+|-------|----------|
+| 2026-04-14 | Monorepo es fuente de verdad — sync automático vía GitHub Actions al repo del cliente |
+| 2026-04-14 | deploy-macasahs.yml eliminado del monorepo — deploy lo maneja SistemasMacasa/macasahs |
