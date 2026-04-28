@@ -32,7 +32,7 @@ export function Footer() {
               en México.
             </p>
             <a
-              href="https://www.facebook.com/macasahs"
+              href="https://www.facebook.com/profile.php?id=100075974230738"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-macasa-accent"
