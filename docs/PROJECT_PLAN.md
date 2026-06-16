@@ -294,3 +294,29 @@
 |-------|----------|
 | 2026-04-14 | Monorepo es fuente de verdad — sync automático vía GitHub Actions al repo del cliente |
 | 2026-04-14 | deploy-macasahs.yml eliminado del monorepo — deploy lo maneja SistemasMacasa/macasahs |
+
+---
+
+## FASE 12: Fix cert correo + DNS de vuelta a SiteGround ✅ COMPLETADA (2026-06-15)
+
+El wildcard LE de SiteGround (`*.macasahs.com.mx`, cubre `mail`/`webmail`) venció el 14/06: al haber movido la zona a Cloudflare en abril, SiteGround perdió el control del DNS y no pudo renovar por DNS-01. Web no afectada (vive en Lightsail+CF). Detalle y playbook reutilizable en memoria `reference_siteground_wildcard_dns01_breaks_on_cloudflare`.
+
+| # | Tarea | Estado | Notas |
+|---|-------|--------|-------|
+| 12.1 | Diagnóstico: wildcard SG, no Lightsail/CF | ✅ | Selector "LE Wildcard" gris = confirmación del bloqueo DNS-01 |
+| 12.2 | Pre-stage zona en SiteGround | ✅ | www→CNAME Lightsail, redirect 301 apex→www, validación ACM, Brevo, SES, SPF, DNSSEC sin DS |
+| 12.3 | Flip NS Akky → SiteGround | ✅ | Propagación split al cierre (8.8.8.8 ✅, 1.1.1.1 cacheado) |
+| 12.4 | Forzar renovación wildcard | ✅ | Gestor SSL → ⋮ → Renovar → ACTIVO 13/09/2026; IMAP/SMTP/webmail verificados con openssl |
+
+### Decisiones
+
+| Fecha | Decisión |
+|-------|----------|
+| 2026-06-15 | Regresar zona DNS a SiteGround (no Migadu, no wildcard premium) — recupera auto-renovación nativa del correo por DNS-01 |
+| 2026-06-15 | Web por CNAME directo a Lightsail (sin Cloudflare for SaaS) — ya tenía cert ACM propio |
+| 2026-06-15 | Conservar DKIM de SES — SPF trae include:amazonses.com (SES activo) |
+
+### Pendientes
+- [ ] Completar propagación NS; sanity apex 301 (con `.com`) + `/webmail` no sombreado.
+- [ ] `*.dev.json` EXPIRADO → renovar o borrar; `*.staging6` (vence 04/07) auto/forzar.
+- [ ] Borrar zona inactiva en Cloudflare tras propagar.
