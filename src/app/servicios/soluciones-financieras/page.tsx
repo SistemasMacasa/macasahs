@@ -59,6 +59,7 @@ export default function SolucionesFinancierasPage() {
         description="Adquiera la tecnología que su empresa necesita con esquemas de pago flexibles y a la medida de su operación."
         breadcrumbs={[{ label: 'Soluciones Financieras' }]}
         tags={['Crédito de Casa', 'Financiamiento', 'Arrendamiento', 'OPEX']}
+        image="/fotos/junta-propuesta.webp"
       />
 
       {/* Quick benefits */}

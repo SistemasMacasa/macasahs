@@ -1,20 +1,86 @@
 @import 'tailwindcss';
 
-@theme {
-  --color-macasa-primary: #003DA5;
-  --color-macasa-primary-dark: #002C75;
-  --color-macasa-primary-light: #0047BB;
-  --color-macasa-secondary: #00357A;
-  --color-macasa-accent: #F2933D;
-  --color-macasa-accent-warm: #FFB902;
-  --color-macasa-dark: #1E2022;
-  --color-macasa-text: #333E48;
-  --color-macasa-text-light: #77838F;
-  --color-macasa-border: #E7EAF3;
-  --color-macasa-bg-light: #F8FAFD;
-  --color-macasa-bg-neutral: #ECEDF2;
+/* ============================================================================
+   Identidad MACASA — derivada de "Manual de Identidad para Web" (15 pp.)
+   Fuente: NextCloud ARTEM/Proyectos/macasa/ecommerce/Manual MACASA Web.pdf
 
-  --font-sans: 'Inter', system-ui, sans-serif;
+   Paleta declarada por el manual (fila "Web" de la pag. 3):
+     #2378eb  azul MACASA      #636569  gris 01      #808080  gris 02
+     #999293  gris 03          #afafaf  gris 04
+
+   Dos notas de criterio, ambas verificadas con calculo de contraste WCAG:
+
+   1. IDENTIDAD vs INTERACTIVO. El azul del manual (#2378eb) da 4.24:1 sobre
+      blanco — alcanza para titulo grande, icono y relleno, pero NO para texto
+      chico ni boton con texto de 12-14 px (AA pide 4.5). Por eso el token de
+      identidad (--color-macasa-brand) conserva el hex del manual y el token
+      interactivo (--color-macasa-primary) usa su sombra -600 (#1e67ca, 5.46:1).
+      Mismo tono, misma familia; la diferencia solo se nota en texto chico.
+
+   2. ESCALA. El manual muestra la rampa de tintas (pag. 4) pero no da hexes;
+      los tints se calculan mezclando con blanco y las sombras con negro. Los
+      neutros salen todos de la familia del #636569 para no meter un gris ajeno.
+   ============================================================================ */
+
+@theme {
+  /* --- Azul de marca -------------------------------------------------------- */
+  --color-macasa-azul-50: #f2f7fe;
+  --color-macasa-azul-100: #e0ecfc;
+  --color-macasa-azul-200: #c1d9f9;
+  --color-macasa-azul-300: #9ac1f6;
+  --color-macasa-azul-400: #619ef1;
+  --color-macasa-azul-500: #2378eb; /* manual */
+  --color-macasa-azul-600: #1e67ca;
+  --color-macasa-azul-700: #1854a4;
+  --color-macasa-azul-800: #13417f;
+  --color-macasa-azul-900: #0d2e59;
+
+  /* --- Neutros (familia del gris 01 del manual) ----------------------------- */
+  --color-macasa-gris-50: #f7f7f8;
+  --color-macasa-gris-100: #eff0f0;
+  --color-macasa-gris-200: #ddddde;
+  --color-macasa-gris-300: #c4c4c6;
+  --color-macasa-gris-400: #929396;
+  --color-macasa-gris-500: #636569; /* manual — gris 01 */
+  --color-macasa-gris-600: #515356;
+  --color-macasa-gris-700: #3d3f41;
+  --color-macasa-gris-800: #2a2a2c;
+  --color-macasa-gris-900: #1c1c1d;
+
+  /* --- Grises literales del manual (pag. 3) -------------------------------- */
+  --color-macasa-gris-02: #808080;
+  --color-macasa-gris-03: #999293;
+  --color-macasa-gris-04: #afafaf;
+
+  /* --- Tokens semanticos --------------------------------------------------- */
+  /* identidad: el azul tal cual lo declara el manual. Rellenos, iconos,
+     titulos grandes, degradados. NO para texto chico sobre blanco. */
+  --color-macasa-brand: #2378eb;
+
+  /* interactivo: botones, enlaces y texto chico en azul (AA sobre blanco) */
+  --color-macasa-primary: #1e67ca;
+  --color-macasa-primary-dark: #1854a4;
+  --color-macasa-primary-light: #619ef1;
+  --color-macasa-secondary: #13417f;
+
+  /* superficies */
+  --color-macasa-dark: #1c1c1d;
+  --color-macasa-surface-dark: #2a2a2c;
+  --color-macasa-bg-light: #f7f7f8;
+  --color-macasa-bg-neutral: #eff0f0;
+  --color-macasa-bg-azul: #f2f7fe;
+  --color-macasa-border: #ddddde;
+
+  /* texto */
+  --color-macasa-text: #3d3f41;
+  --color-macasa-text-light: #636569;
+
+  /* --- Tipografia (manual pag. 5) ------------------------------------------
+     Helvetica para display y Hind para texto corrido. Helvetica no es webfont:
+     se resuelve nativa en macOS/iOS y cae a Arial en Windows (metricamente
+     compatible, sin salto de layout). Hind se sirve self-hosted por next/font. */
+  --font-sans: var(--font-hind), 'Hind', system-ui, -apple-system, sans-serif;
+  --font-display: 'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', sans-serif;
 
   --animate-fade-in: fadeIn 0.6s ease-out forwards;
   --animate-slide-up: slideUp 0.6s ease-out forwards;
@@ -37,8 +103,15 @@
 
   body {
     font-family: var(--font-sans);
-    color: var(--color-macasa-dark);
+    color: var(--color-macasa-text);
+    background-color: #ffffff;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Display en Helvetica — el manual la lista primero y es la del logotipo */
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
   }
 }

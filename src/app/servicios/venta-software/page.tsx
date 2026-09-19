@@ -70,6 +70,7 @@ export default function VentaSoftwarePage() {
         description="Licenciamiento empresarial y soluciones de software para potenciar cada área de tu organización."
         breadcrumbs={[{ label: 'Venta de Software' }]}
         tags={['Licenciamiento', 'Productividad', 'Seguridad', 'Plataformas']}
+        image="/fotos/equipo-laptop.webp"
       />
 
       {/* Categories */}
@@ -134,7 +135,7 @@ export default function VentaSoftwarePage() {
           <div className="grid gap-4 sm:grid-cols-2">
             {benefits.map((b) => (
               <div key={b} className="flex items-center gap-3 rounded-xl border border-macasa-border bg-white p-4">
-                <CheckCircle size={18} className="shrink-0 text-macasa-accent" />
+                <CheckCircle size={18} className="shrink-0 text-macasa-brand" />
                 <span className="text-sm text-macasa-text">{b}</span>
               </div>
             ))}

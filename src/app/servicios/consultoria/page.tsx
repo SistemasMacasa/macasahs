@@ -81,6 +81,7 @@ export default function ConsultoriaPage() {
         description="Asesoría especializada para diseñar, optimizar y proteger la infraestructura tecnológica de su empresa."
         breadcrumbs={[{ label: 'Consultoría' }]}
         tags={['Hardware', 'Software', 'Redes', 'Seguridad']}
+        image="/fotos/datacenter-tablet.webp"
       />
 
       {/* Intro */}

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
+import { MacasaLogo } from '@/shared/components/macasa-logo'
 
 const navLinks = [
   { href: '/', label: 'Inicio' },
@@ -14,15 +15,11 @@ export function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-macasa-border bg-white/95 backdrop-blur-sm">
       <div className="mx-auto max-w-7xl flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <img
-            src="/logo-macasa-transparent.png"
-            alt="MACASA Hardware & Software"
-            className="h-10 w-auto"
-          />
+          <MacasaLogo className="h-10 w-auto" />
         </Link>
 
         {/* Desktop Links */}

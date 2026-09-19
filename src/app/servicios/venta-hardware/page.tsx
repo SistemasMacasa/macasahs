@@ -73,6 +73,7 @@ export default function VentaHardwarePage() {
         description="Equipamiento tecnológico de las marcas líderes para impulsar la productividad de tu empresa."
         breadcrumbs={[{ label: 'Venta de Hardware' }]}
         tags={['Cómputo', 'Servidores', 'Impresión', 'Networking']}
+        image="/fotos/revision-hardware.webp"
       />
 
       {/* Categories grid 2x2 */}
@@ -126,7 +127,7 @@ export default function VentaHardwarePage() {
           <div className="grid gap-4 sm:grid-cols-2">
             {benefits.map((b) => (
               <div key={b} className="flex items-center gap-3 rounded-xl border border-macasa-border bg-white p-4">
-                <CheckCircle size={18} className="shrink-0 text-macasa-accent" />
+                <CheckCircle size={18} className="shrink-0 text-macasa-brand" />
                 <span className="text-sm text-macasa-text">{b}</span>
               </div>
             ))}

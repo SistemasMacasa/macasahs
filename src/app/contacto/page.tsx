@@ -40,6 +40,7 @@ export default function ContactoPage() {
         title="Contáctanos"
         description="Cuéntanos sobre tu proyecto. Nuestro equipo de especialistas responderá en menos de 24 horas hábiles."
         breadcrumbs={[{ label: 'Contacto' }]}
+        image="/fotos/asesoria-dupla.webp"
       />
 
       <section className="px-4 py-20 sm:px-6 lg:px-8 lg:py-28 bg-white">

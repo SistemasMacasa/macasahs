@@ -1,7 +1,17 @@
 import type { Metadata } from 'next'
+import { Hind } from 'next/font/google'
 import './globals.css'
 import { Navbar } from '@/shared/components/navbar'
 import { Footer } from '@/shared/components/footer'
+
+// Tipografia de texto del manual de identidad (pag. 5).
+// next/font la sirve self-hosted: no hay request a Google en runtime.
+const hind = Hind({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-hind',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: {
@@ -36,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es">
+    <html lang="es" className={hind.variable}>
       <body>
         <Navbar />
         <main>{children}</main>

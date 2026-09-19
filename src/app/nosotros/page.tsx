@@ -57,6 +57,7 @@ export default function NosotrosPage() {
         title="Sobre MACASA"
         description="Más de una década diseñando la arquitectura tecnológica de empresas en México."
         breadcrumbs={[{ label: 'Nosotros' }]}
+        image="/fotos/sala-presentacion.webp"
       />
 
       {/* Historia */}
@@ -64,7 +65,7 @@ export default function NosotrosPage() {
         <div className="mx-auto max-w-7xl">
           <div className="grid items-center gap-16 lg:grid-cols-2">
             <div>
-              <span className="mb-4 inline-block rounded-full bg-macasa-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-macasa-primary">
+              <span className="mb-4 inline-block rounded-full bg-macasa-azul-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-macasa-primary-dark">
                 Nuestra filosofía
               </span>
               <h2 className="mb-6 text-3xl font-bold text-macasa-dark sm:text-4xl">
@@ -97,13 +98,11 @@ export default function NosotrosPage() {
             </div>
 
             {/* Values Grid */}
-            <div className="grid grid-cols-2 gap-6">
-              {values.map((value, index) => (
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              {values.map((value) => (
                 <div
                   key={value.title}
-                  className={`transition-all duration-300 hover:-translate-y-1 hover:shadow-xl rounded-2xl border border-macasa-border p-6 ${
-                    index % 2 === 1 ? 'mt-6' : ''
-                  }`}
+                  className="transition-all duration-300 hover:-translate-y-1 hover:shadow-xl rounded-2xl border border-macasa-border p-6"
                 >
                   <div className="mb-4 inline-flex rounded-xl bg-macasa-primary/10 p-3">
                     <value.icon size={24} className="text-macasa-primary" />
@@ -121,7 +120,7 @@ export default function NosotrosPage() {
       <section className="px-4 py-20 sm:px-6 lg:px-8 lg:py-28 bg-macasa-bg-light">
         <div className="mx-auto max-w-7xl">
           <div className="mb-16 text-center">
-            <span className="mb-4 inline-block rounded-full bg-macasa-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-macasa-primary">
+            <span className="mb-4 inline-block rounded-full bg-macasa-azul-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-macasa-primary-dark">
               ¿Por qué elegirnos?
             </span>
             <h2 className="mb-4 text-3xl font-bold text-macasa-dark sm:text-4xl">
@@ -137,7 +136,7 @@ export default function NosotrosPage() {
                 className="flex gap-4 rounded-2xl border border-macasa-border bg-white p-6"
               >
                 <div className="shrink-0">
-                  <CheckCircle size={24} className="text-macasa-accent" />
+                  <CheckCircle size={24} className="text-macasa-brand" />
                 </div>
                 <div>
                   <h3 className="mb-2 font-bold text-macasa-dark">{reason.title}</h3>
@@ -152,7 +151,7 @@ export default function NosotrosPage() {
       {/* Ubicación */}
       <section className="px-4 py-20 sm:px-6 lg:px-8 lg:py-28 bg-white">
         <div className="mx-auto max-w-7xl text-center">
-          <span className="mb-4 inline-block rounded-full bg-macasa-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-macasa-primary">
+          <span className="mb-4 inline-block rounded-full bg-macasa-azul-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-macasa-primary-dark">
             Ubicación
           </span>
           <h2 className="mb-4 text-3xl font-bold text-macasa-dark sm:text-4xl">

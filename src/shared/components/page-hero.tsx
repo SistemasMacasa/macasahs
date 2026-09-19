@@ -11,19 +11,35 @@ interface PageHeroProps {
   description: string
   breadcrumbs?: Breadcrumb[]
   tags?: string[]
+  /**
+   * Fotografia del banco del manual (pags. 10-15), ruta bajo /public.
+   * Va detras de un velo azul de marca para que el texto blanco conserve
+   * contraste con cualquier foto del banco.
+   */
+  image?: string
 }
 
-export function PageHero({ title, description, breadcrumbs, tags }: PageHeroProps) {
+export function PageHero({ title, description, breadcrumbs, tags, image }: PageHeroProps) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-macasa-primary via-macasa-secondary to-macasa-primary-dark pt-32 pb-20">
-      {/* Pattern */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE4YzEuNjU3IDAgMy0xLjM0MyAzLTNzLTEuMzQzLTMtMy0zLTMgMS4zNDMtMyAzIDEuMzQzIDMgMyAzem0wIDM2YzEuNjU3IDAgMy0xLjM0MyAzLTNzLTEuMzQzLTMtMy0zLTMgMS4zNDMtMyAzIDEuMzQzIDMgMyAzem0tMTgtMThjMS42NTcgMCAzLTEuMzQzIDMtM3MtMS4zNDMtMy0zLTMtMyAxLjM0My0zIDMgMS4zNDMgMyAzIDN6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
-      <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-macasa-accent/20 blur-3xl" />
+    <section className="relative overflow-hidden bg-macasa-azul-800 pt-32 pb-20">
+      {image && (
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url('${image}')` }}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Velo azul de marca: fija el contraste del texto sin apagar la foto */}
+      <div
+        className="absolute inset-0 bg-gradient-to-r from-macasa-azul-900/95 via-macasa-azul-800/85 to-macasa-brand/60"
+        aria-hidden="true"
+      />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Breadcrumbs */}
         {breadcrumbs && (
-          <nav className="mb-6 flex items-center gap-1 text-sm text-white/60">
+          <nav className="mb-6 flex items-center gap-1 text-sm text-white/70">
             <Link href="/" className="hover:text-white">Inicio</Link>
             {breadcrumbs.map((crumb, i) => (
               <span key={i} className="flex items-center gap-1">
@@ -31,7 +47,7 @@ export function PageHero({ title, description, breadcrumbs, tags }: PageHeroProp
                 {crumb.href ? (
                   <Link href={crumb.href} className="hover:text-white">{crumb.label}</Link>
                 ) : (
-                  <span className="text-white/90">{crumb.label}</span>
+                  <span className="text-white">{crumb.label}</span>
                 )}
               </span>
             ))}
@@ -41,7 +57,7 @@ export function PageHero({ title, description, breadcrumbs, tags }: PageHeroProp
         <h1 className="mb-4 text-4xl font-extrabold text-white sm:text-5xl">
           {title}
         </h1>
-        <p className="max-w-2xl text-lg leading-relaxed text-white/80">
+        <p className="max-w-2xl text-lg leading-relaxed text-white/85">
           {description}
         </p>
 
@@ -50,7 +66,7 @@ export function PageHero({ title, description, breadcrumbs, tags }: PageHeroProp
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white/90 backdrop-blur-sm"
+                className="rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs font-medium text-white backdrop-blur-sm"
               >
                 {tag}
               </span>

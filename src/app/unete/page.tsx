@@ -39,6 +39,7 @@ export default function UnetePage() {
         description="En MACASA buscamos personas comprometidas con la tecnología y el servicio al cliente. Si te apasiona el mundo TI, queremos conocerte."
         breadcrumbs={[{ label: 'Únete a nuestro equipo' }]}
         tags={['Ventas TI', 'Soporte técnico', 'Administración', 'Logística']}
+        image="/fotos/showroom-tablet.webp"
       />
 
       <section className="bg-white px-4 py-20 sm:px-6 lg:px-8 lg:py-28">

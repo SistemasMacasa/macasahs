@@ -3,7 +3,8 @@
 > Sitio web informativo profesional para MACASA Hardware & Software.
 > Distribuidor TI B2B: hardware, software, licenciamiento, consultoría, cloud, virtualización.
 > Inicio: 2026-04-01
-> Estado: EN PRODUCCION — https://aeap-macasa.artem.com.mx
+> Estado: EN PRODUCCION — https://www.macasahs.com.mx (Lightsail, cuenta del cliente)
+> Identidad de marca: ver `docs/IDENTIDAD.md`
 
 ---
 
@@ -22,8 +23,10 @@
 | 9 | Página de reclutamiento /unete | ✅ Completada | 3/3 |
 | 10 | Brevo SMTP — formularios propios | ✅ Completada | 4/4 |
 | 11 | Export + CI/CD repo cliente | ✅ Completada | 4/4 |
+| 12 | Fix cert correo + DNS a SiteGround | ✅ Completada | 4/4 |
+| 13 | Manual de identidad de marca | ⏸ Espera validación | 8/8 |
 
-**Total**: 63/63 tareas completadas
+**Total**: 75/75 tareas completadas (Fase 13 implementada, pendiente de validar antes de mergear)
 
 ---
 
@@ -320,3 +323,46 @@ El wildcard LE de SiteGround (`*.macasahs.com.mx`, cubre `mail`/`webmail`) venci
 - [ ] Completar propagación NS; sanity apex 301 (con `.com`) + `/webmail` no sombreado.
 - [ ] `*.dev.json` EXPIRADO → renovar o borrar; `*.staging6` (vence 04/07) auto/forzar.
 - [ ] Borrar zona inactiva en Cloudflare tras propagar.
+
+---
+
+## FASE 13: Manual de identidad de marca ⏸ IMPLEMENTADA, ESPERA VALIDACIÓN (2026-09-17)
+
+MACASA entregó un **Manual de Identidad para Web** (15 pp., NextCloud
+`ARTEM/Proyectos/macasa/ecommerce/Manual MACASA Web.pdf`). El sitio no cumplía
+ninguno de sus tres ejes: usaba `#003DA5` en lugar del azul declarado, un acento
+naranja que no aparece en el manual, e Inter en lugar de Helvetica/Hind.
+Razonamiento completo de cada decisión en [`docs/IDENTIDAD.md`](IDENTIDAD.md).
+
+| # | Tarea | Estado | Notas |
+|---|-------|--------|-------|
+| 13.1 | Extraer y leer el manual (15 pp., casi todo imagen) | ✅ | Paleta, tipografías, 4 fondos y banco de 9 fotos |
+| 13.2 | Sistema de tokens en `globals.css` | ✅ | Paleta del manual + escala calculada; se eliminó el naranja |
+| 13.3 | Tipografía Helvetica (display) + Hind (texto) | ✅ | Hind self-hosted por `next/font/google` |
+| 13.4 | Versión blanca del logotipo (knockout) | ✅ | Del canal alfa. El footer usaba el logo a color sobre oscuro |
+| 13.5 | Componente `<MacasaLogo />` como única vía de la marca | ✅ | Era un logo **falso** en texto Arial, huérfano y con colores fuera del manual |
+| 13.6 | Fondos y banco fotográfico a WebP en `public/` | ✅ | 14 assets, 1.3 MB; hero de la home replica la portada del manual |
+| 13.7 | Reparto de fotos en las 7 páginas internas | ✅ | Velo azul en `PageHero` fija el contraste con cualquier foto |
+| 13.8 | Audit de contraste WCAG AA (`scripts/audit-contraste.py`) | ✅ | 0 fallas en 8 páginas × 2 viewports |
+
+### Decisiones
+
+| Fecha | Decisión |
+|-------|----------|
+| 2026-09-17 | Azul de marca = `#2378eb` (fila "Web" del manual), NO `#446dbe` del logotipo del propio PDF — el manual se contradice y el logo que ya usaba el sitio cumplía el hex declarado |
+| 2026-09-17 | Dos tokens de azul: `macasa-brand` (#2378eb, identidad) y `macasa-primary` (#1e67ca, interactivo) — el azul del manual da 4.24:1 sobre blanco y AA pide 4.5 para texto chico |
+| 2026-09-17 | Sin color de acento: el contraste sobre azul lo da el blanco (botón blanco, texto azul). El naranja no venía de ningún manual |
+| 2026-09-17 | Neutros derivados del gris 01 (`#636569`) del manual, incluido el oscuro del footer — el manual no da un negro |
+| 2026-09-17 | Hind por `next/font/google` (self-hosted en build) y no vendorizada: el `.gitignore` raíz sólo whitelistea imágenes bajo `public/`, no `.woff2` |
+| 2026-09-17 | Cambio en rama + PR sin mergear: un push de `websites/macasahs/**` a `main` despliega a producción sin paso manual |
+
+### Pendientes
+- [ ] **Validar en local y mergear el PR** — el merge ES el deploy a `www.macasahs.com.mx`.
+- [ ] Confirmar con MACASA el azul correcto si objetan `#2378eb` vs el `#446dbe` del logotipo del PDF.
+- [ ] Pedir a MACASA los originales de 4 fotos del banco que vienen chicas en el PDF (519×752 a 666×752).
+- [ ] Decidir qué hacer con `/login`, `/signup` y `/dashboard`: restos del template SaaS Factory, responden 200 con texto de placeholder en un sitio de cliente.
+- [ ] Arreglar el iframe de Google Maps en `/nosotros`: renderiza en blanco, el `pb` del embed es un placeholder. Pre-existente, no regresión.
+- [ ] Fix de raíz del `npm install` del workspace (reescribe el `package-lock.json` raíz — decisión de Israel).
+- [ ] Asignar o descartar `tablet-escritorio.webp` y `tablet-oficina.webp` (sin uso).
+
+*Última actualización: 2026-09-17 — Fase 13 implementada en local, PR abierto sin mergear.*
