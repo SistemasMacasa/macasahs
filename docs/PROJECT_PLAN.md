@@ -24,9 +24,9 @@
 | 10 | Brevo SMTP — formularios propios | ✅ Completada | 4/4 |
 | 11 | Export + CI/CD repo cliente | ✅ Completada | 4/4 |
 | 12 | Fix cert correo + DNS a SiteGround | ✅ Completada | 4/4 |
-| 13 | Manual de identidad de marca | ⏸ Espera validación | 8/8 |
+| 13 | Manual de identidad de marca | ✅ Completada | 10/10 |
 
-**Total**: 75/75 tareas completadas (Fase 13 implementada, pendiente de validar antes de mergear)
+**Total**: 77/77 tareas completadas
 
 ---
 
@@ -326,7 +326,7 @@ El wildcard LE de SiteGround (`*.macasahs.com.mx`, cubre `mail`/`webmail`) venci
 
 ---
 
-## FASE 13: Manual de identidad de marca ⏸ IMPLEMENTADA, ESPERA VALIDACIÓN (2026-09-17)
+## FASE 13: Manual de identidad de marca ✅ COMPLETADA (2026-09-18, EN PRODUCCIÓN)
 
 MACASA entregó un **Manual de Identidad para Web** (15 pp., NextCloud
 `ARTEM/Proyectos/macasa/ecommerce/Manual MACASA Web.pdf`). El sitio no cumplía
@@ -344,6 +344,8 @@ Razonamiento completo de cada decisión en [`docs/IDENTIDAD.md`](IDENTIDAD.md).
 | 13.6 | Fondos y banco fotográfico a WebP en `public/` | ✅ | 14 assets, 1.3 MB; hero de la home replica la portada del manual |
 | 13.7 | Reparto de fotos en las 7 páginas internas | ✅ | Velo azul en `PageHero` fija el contraste con cualquier foto |
 | 13.8 | Audit de contraste WCAG AA (`scripts/audit-contraste.py`) | ✅ | 0 fallas en 8 páginas × 2 viewports |
+| 13.9 | Preflight: build Docker + contenedor de producción verificado | ✅ | Confirma que la descarga de Hind en build aguanta en `node:20-alpine` |
+| 13.10 | Deploy a producción (PR #331 → sync → Lightsail) | ✅ | 2026-09-18. Verificado en vivo: rutas, assets, Hind self-hosted, 0 fallas AA |
 
 ### Decisiones
 
@@ -355,9 +357,10 @@ Razonamiento completo de cada decisión en [`docs/IDENTIDAD.md`](IDENTIDAD.md).
 | 2026-09-17 | Neutros derivados del gris 01 (`#636569`) del manual, incluido el oscuro del footer — el manual no da un negro |
 | 2026-09-17 | Hind por `next/font/google` (self-hosted en build) y no vendorizada: el `.gitignore` raíz sólo whitelistea imágenes bajo `public/`, no `.woff2` |
 | 2026-09-17 | Cambio en rama + PR sin mergear: un push de `websites/macasahs/**` a `main` despliega a producción sin paso manual |
+| 2026-09-18 | `sync-macasahs.yml` deja de publicar docs internos de ARTEM en el repo **público** del cliente (bitácoras, `CLAUDE.md`, `GEMINI.md`, `.mcp.json`) — el paso de limpieza previo además borró la exposición que ya existía |
+| 2026-09-18 | Tarjetas de valores en `/nosotros`: fuera el escalonado `mt-6` (dejaba la columna derecha 24px más baja) y 1 columna en teléfono, como el resto de las rejillas del sitio |
 
 ### Pendientes
-- [ ] **Validar en local y mergear el PR** — el merge ES el deploy a `www.macasahs.com.mx`.
 - [ ] Confirmar con MACASA el azul correcto si objetan `#2378eb` vs el `#446dbe` del logotipo del PDF.
 - [ ] Pedir a MACASA los originales de 4 fotos del banco que vienen chicas en el PDF (519×752 a 666×752).
 - [ ] Decidir qué hacer con `/login`, `/signup` y `/dashboard`: restos del template SaaS Factory, responden 200 con texto de placeholder en un sitio de cliente.
@@ -365,4 +368,4 @@ Razonamiento completo de cada decisión en [`docs/IDENTIDAD.md`](IDENTIDAD.md).
 - [ ] Fix de raíz del `npm install` del workspace (reescribe el `package-lock.json` raíz — decisión de Israel).
 - [ ] Asignar o descartar `tablet-escritorio.webp` y `tablet-oficina.webp` (sin uso).
 
-*Última actualización: 2026-09-17 — Fase 13 implementada en local, PR abierto sin mergear.*
+*Última actualización: 2026-09-18 — Fase 13 en producción (PR #331 mergeado, deploy verificado en vivo).*
